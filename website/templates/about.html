@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}About - Starphys Cozy Crochet{% endblock %}
+
+{% block content %}
+<style>
+    /* 1. Top Hero Section - Keeping your brand purple here */
+    .about-hero {
+        background-color: #4b2c85; 
+        border-radius: 15px;
+        margin-top: 20px;
+        padding: 50px;
+        color: white;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .video-minimized {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    /* 2. Pillars Section - Now on a clean white background */
+    .pillars-section {
+        padding: 60px 0;
+        background-color: transparent;
+    }
+
+    .pillar-card {
+        background: #ffffff;
+        border: 1px solid #eee;
+        padding: 30px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        text-align: center;
+        height: 100%;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .pillar-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(75, 44, 133, 0.1);
+        border-color: #4b2c85;
+    }
+
+    .pillar-icon {
+        font-size: 2rem;
+        color: #4b2c85;
+        margin-bottom: 15px;
+    }
+
+    /* 3. Contact/Commission Section */
+    .commission-box {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 40px;
+        border: 2px dashed #4b2c85;
+        margin-bottom: 50px;
+    }
+</style>
+
+<div class="container">
+    <!-- Purple Hero Section -->
+    <div class="about-hero">
+        <div class="row align-items-center">
+            <div class="col-md-5 mb-4 mb-md-0">
+                <video autoplay muted loop playsinline class="video-minimized">
+                    <source src="{{ url_for('static', filename='videos/hero.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+            <div class="col-md-7 ps-md-5">
+                <h1 class="display-4 font-weight-bold">Our Story</h1>
+                <p class="lead"><em>Where every stitch tells a story.</em></p>
+                <p>
+                    <strong>Starphys Cozy Crochet</strong> was founded by SW, blending a meticulous eye for detail with a lifelong passion for handmade artistry. 
+                    What began as a personal fascination with the rhythmic click of hooks has blossomed into a full-scale creative brand dedicated to high-quality, "slow-made" fashion.
+                </p>
+                <p>
+                    In a world of mass production, we believe your wardrobe should be as unique as you are. Every item is crafted entirely by hand, ensuring that no two pieces are ever identical.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Pillars Section (Now on White Background) -->
+    <div class="pillars-section">
+     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+            <div class="col-md-4 mb-4">
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-female"></i></div>
+                    <h4>The Mesh Collection</h4>
+                    <p class="text-muted">Our signature mesh tops and dresses are designed for breathability and style, perfect for layering or making a statement at the beach.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-users"></i></div>
+                    <h4>Gender-Neutral Style</h4>
+                    <p class="text-muted">Our Ruffle and Beanie hats are crafted for both genders, focusing on universal comfort and a cozy fit for any season.</p>
+                </div>
+            </div>
+            
+            <!-- 3. Bags (NEW PILLAR) -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-shopping-bag"></i></div>
+                    <h4>Boutique Bags</h4>
+                    <p class="text-muted">Hand-stitched bags that combine durability with the unique charm of crochet artistry.</p>
+                </div>
+            </div>
+            
+            
+            <div class="col-md-4 mb-4">
+                <div class="pillar-card">
+                    <div class="pillar-icon"><i class="fa fa-home"></i></div>
+                    <h4>Home Sanctuary</h4>
+                    <p class="text-muted">We go beyond fashion with our handcrafted Fluffy Mats, designed to bring a touch of handmade luxury and comfort to your living space.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact for Commission Section -->
+    <div class="commission-box text-center">
+        <h2 style="color: #4b2c85;">Dreaming of something custom?</h2>
+        <p class="lead">If you have a specific color or a unique measurement in mind for a mesh top, skirt, or dress, we would love to bring your vision to life.</p>
+        <p>Email us at: <strong>comfortyomaah@gmail.com</strong></p>
+        <a href="mailto:comfortyomaah@gmail.com" class="btn btn-lg btn-primary" style="background-color: #4b2c85; border: none;">
+            Start Your Commission
+        </a>
+    </div>
+</div>
+{% endblock %}

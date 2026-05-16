@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Our Crochet Services{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom styling for your deep purple service cards */
+    .service-card-purple {
+        background-color: #4b2c85 !important;
+        color: white !important;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+    }
+
+    .service-card-purple:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+    }
+
+    .service-card-purple h3, 
+    .service-card-purple i {
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    .service-card-purple p {
+        color: #d1c4e9; /* Light lavender for better readability on purple */
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Handmade Just for You</h1>
+    
+    <div class="row">
+        <!-- 1. Fashion -->
+        <div class="col-md-6 mb-4">
+            <div class="card p-4 shadow-sm border-0 service-card-purple">
+                <h3><i class="fa fa-female"></i> Fashion & Apparel</h3>
+                <p>We specialize in trendy Mesh Tops, flowing Dresses, and custom Skirts. Whether you need a summer Bikini or a layered top, we crochet to your exact measurements.</p>
+            </div>
+        </div>
+
+        <!-- 2. Headwear -->
+        <div class="col-md-6 mb-4">
+            <div class="card p-4 shadow-sm border-0 service-card-purple">
+                <h3><i class="fa fa-graduation-cap"></i> Headwear for All</h3>
+                <p>Style meets comfort with our signature Ruffle Hats and cozy Beanie Hats. Designed for both genders, using the softest yarns available.</p>
+            </div>
+        </div>
+
+        <!-- 3. Bags -->
+        <div class="col-md-6 mb-4">
+            <div class="card p-4 shadow-sm border-0 service-card-purple">
+                <h3><i class="fa fa-shopping-bag"></i> Bags & Accessories</h3>
+                <p>Hand-stitched Bags that are as sturdy as they are stylish. Durable enough for daily use and unique enough to stand out.</p>
+            </div>
+        </div>
+
+        <!-- 4. Home Decor -->
+        <div class="col-md-6 mb-4">
+            <div class="card p-4 shadow-sm border-0 service-card-purple">
+                <h3><i class="fa fa-home"></i> Home Decor</h3>
+                <p>Transform your space with our Fluffy Mats. Perfect for adding a soft, textured touch to any room in your house.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Commission Section -->
+    <div class="text-center mt-4 p-5 bg-dark text-white rounded">
+        <h2>Have a unique idea?</h2>
+        <p>If it can be crocheted, Starphys can make it. We take custom commissions for anything you can imagine!</p>
+        <a href="/shop" class="btn btn-outline-light btn-lg">Browse Shop</a>
+    </div>
+</div>
+{% endblock %}

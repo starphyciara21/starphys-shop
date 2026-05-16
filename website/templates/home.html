@@ -1,0 +1,153 @@
+{% extends "base.html" %} 
+{% block title %}Home - Starphys Cozy Crochet{% endblock %} 
+
+{% block content %}
+<style>
+    /* 1. Hero Section Styling */
+    .hero-section {
+        position: relative;
+        /* Pushing background back with a deeper overlay */
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                    url("{{ url_for('static', filename='images/hero_crochet.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        height: 85vh;
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-between; /* Maintains the gap for the central logo */
+        align-items: center;
+        color: white;
+        text-align: center;
+        border-radius: 15px;
+        margin-top: 20px;
+        padding: 50px 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero-top-content {
+        z-index: 2;
+        min-height: 50px; /* Keeps the spacing even if empty */
+    }
+
+    .hero-bottom-content {
+        width: 100%;
+        z-index: 2;
+        margin-bottom: 10px;
+    }
+
+    .hero-slogan {
+        font-size: 1.25rem;
+        max-width: 650px;
+        margin: 0 auto 20px auto;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 1px 1px 10px rgba(0,0,0,1);
+        font-weight: 500;
+    }
+
+    /* 2. Category Card Styling */
+    .category-card {
+        border: none;
+        transition: 0.3s;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .section-padding {
+        padding: 60px 0;
+    }
+</style>
+
+<!-- 1. HERO SECTION -->
+<header class="hero-section shadow">
+    <!-- TOP PART: Text removed to let the background shade speak for itself -->
+    <div class="hero-top-content">
+        <!-- The title has been removed as requested -->
+    </div>
+
+    <!-- MIDDLE SPACE: This gap is where your background logo shows through clearly -->
+
+    <!-- BOTTOM PART: Slogan remains below the logo area -->
+    <div class="hero-bottom-content">
+        <p class="hero-slogan">
+            Custom Wearables, Headwear, and Home Decor—One Stitch at a Time.
+        </p>
+        <a href="/shop" class="btn btn-primary btn-lg px-5 shadow" style="background-color: #6f42c1; border: none; font-weight: bold;">
+            Shop the Collection
+        </a>
+    </div>
+</header>
+
+<!-- 2. CATEGORY PREVIEW -->
+<section class="container section-padding">
+    <h2 class="text-center mb-5" style="font-weight: bold;">Everything Crochet</h2>
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card category-card shadow-sm text-center p-3">
+                <i class="fa-solid fa-person-dress fa-3x mb-3 text-info"></i>
+                <h5>Wearables</h5>
+                <p class="small text-muted">Dresses, Skirts & Bikinis</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card category-card shadow-sm text-center p-3">
+                <i class="fa-solid fa-hat-wizard fa-3x mb-3 text-info"></i>
+                <h5>Headwear</h5>
+                <p class="small text-muted">Ruffle & Beanie Hats</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card category-card shadow-sm text-center p-3">
+                <i class="fa-solid fa-bag-shopping fa-3x mb-3 text-info"></i>
+                <h5>Bags</h5>
+                <p class="small text-muted">Boho & Mesh Styles</p>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card category-card shadow-sm text-center p-3">
+                <i class="fa-solid fa-house-chimney fa-3x mb-3 text-info"></i>
+                <h5>Home</h5>
+                <p class="small text-muted">Fluffy Mats & More</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. THE STARPHYS PROMISE -->
+<section class="bg-light section-padding rounded">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-4">
+                <i class="fa-solid fa-ruler-combined fa-2x mb-3 text-dark"></i>
+                <h4>Custom Fit</h4>
+                <p>Provide measurements for a piece made specifically for your body.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa-solid fa-heart fa-2x mb-3 text-dark"></i>
+                <h4>100% Handmade</h4>
+                <p>Every loop and stitch is crafted with intention and quality yarn.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa-solid fa-truck-fast fa-2x mb-3 text-dark"></i>
+                <h4>Global Style</h4>
+                <p>Bringing artisanal crochet from my workshop to your doorstep.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. CALL TO ACTION -->
+<section class="container section-padding text-center">
+    <div class="p-5 shadow rounded bg-white">
+        <h2>Ready for something unique?</h2>
+        <p class="text-muted">If you can dream it, Starphys can crochet it.</p>
+        <a href="/about" class="btn btn-outline-dark mx-2">Our Story</a>
+        <a href="/services" class="btn btn-primary mx-2">Our Services</a>
+    </div>
+</section>
+
+{% endblock %}

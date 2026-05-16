@@ -1,0 +1,103 @@
+{% extends "base.html" %} 
+{% block title %}Shop - Starphys Cozy Crochet{% endblock %} 
+
+{% block content %}
+
+<div class="container text-center mb-4">
+    <h2 class="mb-3">Shop Starphys Collections</h2>
+    <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#sizeGuideModal">
+        <i class="fa fa-info-circle"></i> View Size & Measuring Guide
+    </button>
+</div>
+
+<h2 align="center" class="mt-4">Our Crochet Collection</h2>
+
+<div class="row mt-4">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+            <img src="{{ product.image_url }}" 
+                 class="card-img-top" 
+                 alt="{{ product.name }}" 
+                 style="height: 250px; object-fit: cover; border-radius: 15px 15px 0 0;">
+            
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="text-success"><strong>GH₵ {{ "{:.2f}".format(product.price) }}</strong></p>
+                
+                <form action="{{ url_for('views.add_to_cart', product_id=product.id) }}" method="POST" class="mt-auto">
+                    <div class="form-group">
+                        
+                        {% if 'Dress' in product.name %}
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="mb-0"><small><strong>Custom Measurements:</strong></small></label>
+                                <a href="#" data-toggle="modal" data-target="#sizeGuideModal" class="small text-info"><u>Size Guide</u></a>
+                            </div>
+                            
+                            <textarea 
+                                name="measurements" 
+                                class="form-control form-control-sm" 
+                                placeholder="e.g. Bust 34, Waist 28, Hips 38, Custom Length 32 inches" 
+                                required></textarea>
+                            <small class="form-text text-muted">Required for custom dress fitting.</small>
+                        
+                        {% else %}
+                            <label class="mb-1"><small><strong>Select Color:</strong></small></label>
+                            <input 
+                                type="text" 
+                                name="measurements" 
+                                class="form-control form-control-sm" 
+                                placeholder="e.g. Pink, Off-White, Black, Sky Blue" 
+                                required>
+                            <small class="form-text text-muted">Specify your custom yarn color preference.</small>
+                        {% endif %}
+                        
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block shadow-sm">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="modal fade" id="sizeGuideModal" tabindex="-1" role="dialog" aria-labelledby="sizeGuideModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title" id="sizeGuideModalLabel">Starphys Cozy Crochet - Dress Measuring Guide</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted">For a perfect fit on your custom handmade dress, please provide these details:</p>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <h6><strong>1. Bust/Chest</strong></h6>
+            <p><small>Measure around the fullest part of your chest with the tape flat against your back.</small></p>
+            
+            <h6><strong>2. Waist</strong></h6>
+            <p><small>Measure around your natural waistline (the narrowest part of your torso).</small></p>
+          </div>
+          <div class="col-md-6">
+            <h6><strong>3. Hips</strong></h6>
+            <p><small>Measure around the fullest part of your hips/bottom.</small></p>
+            
+            <h6><strong>4. Custom Length</strong></h6>
+            <p><small>Measure from your waist down to where you want the dress hemline to hit.</small></p>
+          </div>
+        </div>
+        <hr>
+        <div class="alert alert-info">
+          <strong>Note:</strong> Since each dress is uniquely crafted, accurate measurements ensure the perfect fit!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close Guide</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
