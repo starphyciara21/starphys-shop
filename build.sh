@@ -6,4 +6,4 @@ set -o errexit
 pip install -r requirements.txt
 
 # 2. Run your catalog script to wipe and reload your database with the clean images
-python product_shop.py
+python populate_shop.py
