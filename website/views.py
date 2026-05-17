@@ -1,3 +1,4 @@
+import requests  # Added for making backend calls to Paystack's API
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Product, Cart 
@@ -67,3 +68,83 @@ def cart():
     total = sum(item.product.price * item.quantity for item in cart_items)
     
     return render_template("cart.html", user=current_user, cart_items=cart_items, total=total)
+
+
+# 7. INITIALIZE PAYSTACK CHECKOUT
+@views.route('/checkout', methods=['POST'])
+@login_required
+def checkout():
+    cart_items = Cart.query.filter_by(user_id=current_user.id).all()
+    if not cart_items:
+        flash('Your cart is empty!', category='error')
+        return redirect(url_for('views.cart'))
+        
+    total = sum(item.product.price * item.quantity for item in cart_items)
+    
+    # Paystack processes currency in its smallest unit (Pesewas for GHS). Multiply by 100.
+    amount_in_pesewas = int(total * 100)
+    
+    # Linked to your Starphys Shop Paystack test account profile
+    PAYSTACK_SECRET_KEY = "sk_test_159d97b41788508c62d168acf27cd8b7f7d353b7"
+    
+    url = "https://api.paystack.co/transaction/initialize"
+    headers = {
+        "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    # Send the user info and local/live callback URL so Paystack returns them to us after paying
+    data = {
+        "email": current_user.email,
+        "amount": amount_in_pesewas,
+        "callback_url": "http://127.0.0.1:5000/payment-verify" 
+    }
+    
+    try:
+        response = requests.post(url, json=data, headers=headers).json()
+        if response.get('status'):
+            # Redirect the customer straight to Paystack's hosted payment gateway interface
+            return redirect(response['data']['authorization_url'])
+        else:
+            flash(f"Payment setup failed: {response.get('message')}", category='error')
+            return redirect(url_for('views.cart'))
+    except Exception as e:
+        flash("Unable to connect to the payment processor right now.", category='error')
+        return redirect(url_for('views.cart'))
+
+
+# 8. VERIFY PAYMENT AND CLEAR CART
+@views.route('/payment-verify')
+@login_required
+def payment_verify():
+    # Paystack appends a unique ?reference=XYZ query string to the URL when returning
+    reference = request.args.get('reference')
+    
+    if not reference:
+        flash('Transaction reference not found.', category='error')
+        return redirect(url_for('views.cart'))
+        
+    PAYSTACK_SECRET_KEY = "sk_test_159d97b41788508c62d168acf27cd8b7f7d353b7"
+    url = f"https://api.paystack.co/transaction/verify/{reference}"
+    headers = {
+        "Authorization": f"Bearer {PAYSTACK_SECRET_KEY}"
+    }
+    
+    try:
+        response = requests.get(url, headers=headers).json()
+        if response.get('status') and response['data']['status'] == 'success':
+            
+            # SUCCESS! Clear out all cart items for the user since payment is confirmed
+            cart_items = Cart.query.filter_by(user_id=current_user.id).all()
+            for item in cart_items:
+                db.session.delete(item)
+            db.session.commit()
+            
+            flash('Payment successful! Your custom order has been placed.', category='success')
+            return redirect(url_for('views.shop'))
+        else:
+            flash('Payment verification failed or was cancelled.', category='error')
+            return redirect(url_for('views.cart'))
+    except Exception as e:
+        flash("Error verifying transaction process.", category='error')
+        return redirect(url_for('views.cart'))

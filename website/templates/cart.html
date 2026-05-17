@@ -1,5 +1,4 @@
 {% extends "base.html" %} 
-{% block title %}Your Cart - Starphys Cozy Crochet{% endblock %} 
 
 {% block content %}
 <div class="container mt-5">
@@ -19,15 +18,17 @@
                     <small><strong>Measurements/Notes:</strong> {{ item.custom_notes }}</small>
                 </div>
                 {% else %}
-                <small class="text-warning italic">No custom measurements provided.</small>
+                <div class="mt-2">
+                    <small class="text-warning italic">No custom measurements provided.</small>
+                </div>
                 {% endif %}
 
                 <div class="mt-2 text-muted">
-                    Quantity: {{ item.quantity }} | Price: ${{ "{:.2f}".format(item.product.price) }} each
+                    Quantity: {{ item.quantity }} | Price: GHS {{ "{:.2f}".format(item.product.price) }} each
                 </div>
             </div>
             <span class="badge badge-primary badge-pill p-2" style="font-size: 1rem;">
-                Subtotal: ${{ "{:.2f}".format(item.product.price * item.quantity) }}
+                Subtotal: GHS {{ "{:.2f}".format(item.product.price * item.quantity) }}
             </span>
         </li>
         {% endfor %}
@@ -35,11 +36,14 @@
 
     <div class="card mt-4 border-0 shadow-sm">
         <div class="card-body text-right">
-            <h3>Total: <span class="text-success">${{ "{:.2f}".format(total) }}</span></h3>
+            <h3>Total: <span class="text-success">GHS {{ "{:.2f}".format(total) }}</span></h3>
             <hr>
             <div class="d-flex justify-content-center mt-3">
                 <a href="/shop" class="btn btn-outline-secondary mr-2">Keep Shopping</a>
-                <button class="btn btn-primary btn-lg">Proceed to Checkout</button>
+                
+                <form action="{{ url_for('views.checkout') }}" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-primary btn-lg">Proceed to Checkout</button>
+                </form>
             </div>
         </div>
     </div>
